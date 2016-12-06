@@ -9,9 +9,9 @@
    <script>
       var xmlHttp = null;
 
-      function pushTheButton(door)
+      function sendCommand(action)
       {
-         var url = "/garage_door_opener.lua?door=" + door;
+         var url = "/roomba_controller.lua?action=" + action;
 
          xmlHttp = new XMLHttpRequest();
          xmlHttp.onreadystatechange = processRequest;
@@ -71,11 +71,11 @@
    <body bgcolor="#777777">
    <div id="remote">
       <div id="label" class="start"></div>
-      <a href="#" onclick="pushTheButton(1);" class="button button-1">
-          <span>I</span>
+      <a href="#" onclick="sendCommand(start);" class="button button-1">
+          <span>Start</span>
       </a>
-      <a href="#" onclick="pushTheButton(2); " class="button button-2">
-          <span>II</span>
+      <a href="#" onclick="sendCommand(stop); " class="button button-2">
+          <span>Stop</span>
       </a>
       <div id="spacer"></div>
    </div>
