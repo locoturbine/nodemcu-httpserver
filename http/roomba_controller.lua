@@ -20,9 +20,9 @@ local function sendCommand(connection, command)
 end
 
 return function (connection, req, args)
-   print('Garage door button was pressed!', args.action)
-   if     args.door == "start" then sendCommand(connection, 135)   -- Start Command
-   elseif args.door == "stop" then sendCommand(connection, 131)   -- Stop Command
+   print('Sending action to roomba: ', args.action)
+   if     args.action == "start" then sendCommand(connection, 135)   -- Start Command
+   elseif args.action == "stop" then sendCommand(connection, 131)   -- Stop Command
    else
       connection:send("HTTP/1.0 400 OK\r\nContent-Type: application/json\r\nCache-Control: private, no-store\r\n\r\n")
       connection:send('{"error":-1, "message":"Bad door"}')
