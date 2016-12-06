@@ -6,6 +6,15 @@ local function sendCommand(connection, command)
 
 -- Replace with serial communication to roomba
 
+   uart.setup(0,115200,8,0,1)
+   tmr.delay(1000 * 1000) -- 1 seconds
+   uart.write(0,128)
+   tmr.delay(500 * 1000) -- 500 ms
+   uart.write(0,131)
+   tmr.delay(500 * 1000) -- 500 ms
+   
+   uart.write(0,command)
+   
 --    gpio.write(pin, gpio.LOW)
 --    gpio.mode(pin, gpio.OUTPUT)
 --    gpio.write(pin, gpio.LOW)
@@ -22,9 +31,9 @@ end
 return function (connection, req, args)
    print('Sending action to roomba: ', args.action)
    if     args.action == "start" then sendCommand(connection, 135)   -- Start Command
-   elseif args.action == "stop" then sendCommand(connection, 131)   -- Stop Command
+   elseif args.action == "stop" then sendCommand(connection, 133)   -- Stop Command
    else
       connection:send("HTTP/1.0 400 OK\r\nContent-Type: application/json\r\nCache-Control: private, no-store\r\n\r\n")
-      connection:send('{"error":-1, "message":"Bad door"}')
+      connection:send('{"error":-1, "message":"Bad command"}')
    end
 end
