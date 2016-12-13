@@ -66,17 +66,22 @@
         if( velocity < -500 ) velocity = -500;
         drive( velocity, 0x8000 );
     }
-	function goStraight(speed)
+	function goStraight()
       {
 	goStraightAt(500);
          
       }
+	function goBackwards()
+      {
+	goStraightAt(-500);
+         
+      }	   
 	   
 	function sendDrive(direction) {
 	 if (direction = 'FORWARD') 
-		 goStraight(500);
+		 goStraight();
 	 elseif (direction = 'BACKWARD') 
-		goStraight(-500);
+		goBackwards();
 		
 	}
 
