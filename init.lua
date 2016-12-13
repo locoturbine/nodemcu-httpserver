@@ -17,8 +17,8 @@ wifiConfig.accessPointIpConfig.netmask = "255.255.255.0"
 wifiConfig.accessPointIpConfig.gateway = "192.168.111.1"
 
 wifiConfig.stationPointConfig = {}
-wifiConfig.stationPointConfig.ssid = "Internet"        -- Name of the WiFi network you want to join
-wifiConfig.stationPointConfig.pwd =  ""                -- Password for the WiFi network
+wifiConfig.stationPointConfig.ssid = "Fede WiFi"        -- Name of the WiFi network you want to join
+wifiConfig.stationPointConfig.pwd =  "84247360"                -- Password for the WiFi network
 
 -- Tell the chip to connect to the access point
 
@@ -100,6 +100,6 @@ end
 
 -- Uncomment to automatically start the server in port 80
 if (not not wifi.sta.getip()) or (not not wifi.ap.getip()) then
-    --dofile("httpserver.lc")(80)
+    dofile("httpserver.lc")(80)
 end
 
