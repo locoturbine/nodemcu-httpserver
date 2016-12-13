@@ -9,16 +9,76 @@
    </head>
    <script>
       var xmlHttp = null;
+    const START   =  128;  // 0
+    const BAUD    =  129;  // 1
+    const CONTROL =  130;  // 0
+    const SAFE    =  131;  // 0
+    const FULL    =  132;  // 0
+    const POWER   =  133;  // 0
+    const SPOT    =  134;  // 0
+    const CLEAN   =  135;  // 0
+    const MAX     =  136;  // 0
+    const DRIVE   =  137;  // 4
+    const MOTORS  =  138;  // 1
+    const LEDS    =  139;  // 3
+    const SONG    =  140;  // 2N+2
+    const PLAY    =  141;  // 1
+    const SENSORS =  142;  // 1
+    const DOCK    =  143;  // 0
+    const PWMMOTORS = 144; // 3
+    const DRIVEWHEELS = 145; 	// 4
+    const DRIVEPWM = 146;  // 4
+    const STREAM  =  148;  // N+1
+    const QUERYLIST = 149; // N+1
+    const STOPSTARTSTREAM = 150;  // 1
+    const SCHEDULINGLEDS = 162; 	// 2
+    const DIGITLEDSRAW = 163; 	// 4
+    const DIGITLEDSASCII = 164;	// 4
+    const BUTTONSCMD  =  165; // 1
+    const SCHEDULE =  167;  // n
+    const SETDAYTIME = 168; // 3
 
-      function sendCommand(action)
+	   const DEFAULT_SPEED = 200
+
+      function sendCommand(command)
       {
-         var url = "/roomba_controller.lua?action=" + action;
+         var url = "/roomba_controller.lua?command=" + command;
 		 console.log("URL: " +url);
          xmlHttp = new XMLHttpRequest();
          xmlHttp.onreadystatechange = processRequest;
          xmlHttp.open("GET", url, true);
          xmlHttp.send( null );
       }
+	
+	function drive( velocity, radius ) {
+	
+		var cmd32bit = [ DRIVE,(velocity>>>8),(velocity&0xff), 
+			       (radius >>> 8), (radius & 0xff) ];
+		var cmd = new Uint8Array(cmd32bit);
+		console.log("cmd 8-bit: " + cmd);	
+		sendCommand( cmd );
+	}
+	   
+	   
+	function goStraightAt( int velocity ) {
+       
+        if( velocity > 500 ) velocity = 500;
+        if( velocity < -500 ) velocity = -500;
+        drive( velocity, 0x8000 );
+    }
+	function goStraight(speed)
+      {
+	goStraightAt(500);
+         
+      }
+	   
+	function sendDrive(direction) {
+	 if (direction = 'FORWARD') 
+		 goStraight(500);
+	 elseif (direction = 'BACKWARD') 
+		goStraight(-500);
+		
+	}
 
       function processRequest()
       {
@@ -72,29 +132,29 @@
    <body bgcolor="#777777">
    <div id="remote">
       <div id="label" class="start"></div>
-      <a href="#" onclick="sendCommand('start'); " class="button button-1">
+      <a href="#" onclick="sendCommand('CLEAN'); " class="button button-1">
           <span>Clean</span>
       </a>
-      <a href="#" onclick="sendCommand('stop'); " class="button button-2">
+      <a href="#" onclick="sendCommand('START'); " class="button button-2">
           <span>Stop</span>
       </a>
       <div id="spacer"></div>
-      <a href="#" onclick="sendCommand('dock'); " class="button button-1">
+      <a href="#" onclick="sendCommand('DOCK'); " class="button button-1">
           <span>Dock</span>
       </a>
-      <a href="#" onclick="sendCommand('spot'); " class="button button-2">
+      <a href="#" onclick="sendCommand('SPOT'); " class="button button-2">
           <span>Spot</span>
       </a>
        <div id="spacer"></div>
-        <a href="#" onclick="sendCommand('forward'); " class="button button-1">
+        <a href="#" onclick="sendDrive('FORWARD'); " class="button button-1">
           <span>Up</span>
       </a>
-      <a href="#" onclick="sendCommand('reverse'); " class="button button-2">
+      <a href="#" onclick="sendDrive('BACKWARD'); " class="button button-2">
           <span>Down</span>
-      </a> <a href="#" onclick="sendCommand('left'); " class="button button-1">
+      </a> <a href="#" onclick="sendDrive('LEFT'); " class="button button-1">
           <span>Left</span>
       </a>
-      <a href="#" onclick="sendCommand('right'); " class="button button-2">
+      <a href="#" onclick="sendDrive('RIGHT'); " class="button button-2">
           <span>Right</span>
       </a>
    </div>
