@@ -31,7 +31,7 @@ end
 
 return function (connection, req, args)
    print('Sending command to roomba: ' .. args.command)
-   if  args.command != nil  then 
+   if  args.command -= nil  then 
         sendCommand(connection, args.command)   -- Start Command
 --    elseif args.action == "stop" then sendCommand(connection, 128)   -- Stop Command
 --    elseif args.action == "dock" then sendCommand(connection, 143)   -- Stop Command
