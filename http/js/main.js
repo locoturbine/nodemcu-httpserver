@@ -37,13 +37,15 @@ function init()
 
 function changeDirection(beta, gamma ) {
 	var speed = 0 ;
-	if (gamma > 0)
-		speed = (1 - gamma/90) * 500
-	else if (gamma > 0 )
-		speed =  ((-1) * gamma/90 - 1) * 500
-
-	var angle = beta;
-
+	var angle = 0 ;
+	if (gamma > 0){
+		angle = beta;
+		speed = Math.round((1 - gamma/90) * 500);
+	}
+	else if (gamma < 0 ) {
+		speed =  Math.round(((-1) * gamma/90 - 1) * 500);
+		angle = beta ;
+	}
 	document.getElementById("drive").innerHTML = "speed: " + speed +  " angle: " + angle;
 
 
