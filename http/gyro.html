@@ -14,7 +14,7 @@
 </head>
 
 
-<body onload="init()"; changeDirection(20,20);>
+<body onload="init()">
 <script>
 
     function init()
@@ -66,7 +66,7 @@
             angle = beta ;
         }
         document.getElementById("drive").innerHTML = "speed: " + speed +  " angle: " + angle;
-	roomba.drive(speed,angle);
+	    drive(speed,angle);
 
     }
 

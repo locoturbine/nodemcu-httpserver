@@ -2,6 +2,7 @@
  * Created by fcia on 12/15/16.
  */
 var xmlHttp = null;
+const ROOMBA_LUA_HOST = 'http://192.168.0.100/';
 const START = 128;  // 0
 const BAUD = 129;  // 1
 const CONTROL = 130;  // 0
@@ -37,7 +38,7 @@ var millimetersPerDegree = (wheelbase * Math.PI / 360.0);
 var speed = DEFAULT_SPEED;
 
 function sendCommand(command) {
-    var url = "roomba_controller.lua?command=" + command;
+    var url = ROOMBA_LUA_HOST + "roomba_controller.lua?command=" + command;
     console.log("URL: " + url);
     xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = processRequest;
