@@ -1,3 +1,4 @@
+
 function init()
 {
 	if (window.DeviceOrientationEvent) {
@@ -47,6 +48,6 @@ function changeDirection(beta, gamma ) {
 		angle = beta ;
 	}
 	document.getElementById("drive").innerHTML = "speed: " + speed +  " angle: " + angle;
-
+    roomba.drive(speed,angle);
 
 }
