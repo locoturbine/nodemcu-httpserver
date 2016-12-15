@@ -4,21 +4,25 @@
 
 local function sendCommand(connection, command)
 
+
+
     print('Configuring serial port to roomba.. ')
+   
+
     uart.alt('1')
     uart.setup(0,115200,8,0,1)
     tmr.delay(200 * 1000) -- 1 seconds
     uart.write(0,128)
     tmr.delay(100 * 1000) -- 100 ms
---    uart.write(0,131)
---    tmr.delay(100 * 1000) -- 100 ms
+    uart.write(0,131)
+    tmr.delay(100 * 1000) -- 100 ms
 
-    sep = ","
-    for str in string.gmatch(command, "([^"..sep.."]+)") do
-        uart.write(0,command)
-        tmr.delay(100 * 1000) -- 100 ms
-    end
 
+   for str in string.gmatch(command, "([^,]+)") do
+       uart.write(0,tonumber(str))
+       tmr.delay(100 * 1000) -- 100 ms
+   end
+tmr.delay(100 * 1000)
     uart.alt(0)
 
     -- Send back JSON response.
