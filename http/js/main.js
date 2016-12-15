@@ -6,7 +6,9 @@ function init()
 		{
 			document.getElementById("y").style.webkitTransform = "scaleY("+(Math.round(event.beta))+")";  
 			document.getElementById("x").style.webkitTransform = "scaleX("+(Math.round(event.gamma))+")";
-			document.getElementById("angle").style.webkitTransform = "rotateZ("+(Math.round(event.alpha))+"deg)";  
+			document.getElementById("angle").style.webkitTransform = "rotateZ("+(Math.round(event.alpha))+"deg)";
+			document.getElementById("gamma").innerHTML = Math.round(event.gamma);
+			document.getElementById("beta").innerHTML = Math.round(event.beta);
 		}, true);
 		
 		
