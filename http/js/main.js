@@ -15,10 +15,10 @@ function init()
 
 			var betaDiff = Math.abs(Math.round(event.beta) - lastBeta )
 			if (betaDiff > 10 )
-				document.getElementById("beta").innerHTML = Math.round(event.beta);
+				document.getElementById("beta").innerHTML = Math.round(event.beta) + " : " + betaDiff;
 			var gammaDiff = Math.abs(Math.round(event.gamma) - lastGamma )
 			if (gammaDiff > 10 )
-				document.getElementById("gammma").innerHTML = Math.round(event.gamma);
+				document.getElementById("gammma").innerHTML = Math.round(event.gamma) + " : " + gammaDiff;
 
 		}, true);
 		
