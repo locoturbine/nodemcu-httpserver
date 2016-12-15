@@ -17,12 +17,13 @@ function init()
 			if (betaDiff >= 5 ) {
 				lastBeta = Math.round(event.beta)
 				document.getElementById("beta").innerHTML = Math.round(event.beta) + " : " + betaDiff;
+				changeDirection(lastBeta,lastGamma);
 			}
 			var gammaDiff = Math.abs(Math.round(event.gamma) - lastGamma )
 			if (gammaDiff >= 5 ) {
 				lastGamma = Math.round(event.gamma)
 				document.getElementById("gamma").innerHTML = Math.round(event.gamma) + " : " + gammaDiff;
-
+				changeDirection(lastBeta,lastGamma);
 			}
 
 		}, true);
@@ -31,5 +32,19 @@ function init()
 		
 	} else {
   	alert("Sorry, your browser doesn't support Device Orientation");
-	} 
+	}
+}
+
+function changeDirection(beta, gamma ) {
+	var speed = 0 ;
+	if (gamma > 0)
+		speed = (1 - gamma/90) * 500
+	else if (gamma > 0 )
+		speed =  ((-1) * gamma/90 - 1) * 500
+
+	var angle = beta;
+
+	document.getElementById("drive").innerHTML = "speed: " + speed +  " angle: " + angle;
+
+
 }
