@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1, maximum-scale=1">
     <title>Force demo</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/roomba.js"></script>
@@ -16,12 +16,14 @@
 
 <body onload="init()">
 <script>
-	var speedInput = 0;
+    var speedInput = 0;
+    var lastBeta = 0;
     function init()
     {
         if (window.DeviceOrientationEvent) {
-            var lastBeta = 0;
-            var lastGamma = 0 ;
+
+
+            //          var lastGamma = 0 ;
 
             window.addEventListener("deviceorientation", function(event)
             {
@@ -35,18 +37,18 @@
                 if (betaDiff >= 3 ) {
                     lastBeta = Math.round(event.beta)
                     document.getElementById("beta").innerHTML = Math.round(event.beta) + " : " + betaDiff;
-                  //  changeDirection(lastBeta,lastGamma);
+                    //  changeDirection(lastBeta,lastGamma);
                 }
                 var gammaDiff = Math.abs(Math.round(event.gamma) - lastGamma )
                 if (gammaDiff >= 15 ) {
                     lastGamma = Math.round(event.gamma)
                     document.getElementById("gamma").innerHTML = Math.round(event.gamma) + " : " + gammaDiff;
-                   // changeDirection(lastBeta,lastGamma);
+                    // changeDirection(lastBeta,lastGamma);
                 }
 
             }, true);
             setInterval(function(){
-                changeDirection(lastBeta,lastGamma);
+                changeDirection(lastBeta);//,lastGamma);
             }, 1000)
 
 
@@ -56,11 +58,12 @@
     }
 
     function updateSpeed(speed) {
-	speedInput = speed;
+        speedInput = speed;
+        changeDirection(lastBeta)
     }
 
-    function changeDirection(beta, gamma ) {
-	    var n = 1; //steering ratio
+    function changeDirection(beta){//, gamma ) {
+        var n = 1; //steering ratio
         var speed = speedInput * 5;
         var radius = 0 ;
 //        if (gamma > 0){
@@ -71,24 +74,24 @@
 //        }
         radius = Math.round(wheelbase / ( Math.sin( (beta * (Math.PI / 180)) /n)));
         document.getElementById("drive").innerHTML = "speed: " + speed +  " radius: " + radius;
-	    drive(speed,radius);
+        drive(speed,radius);
 
     }
 
 </script>
 <div id="label" class="start"></div>
 
-   <div id="x" class="line"></div>
-   <div id="y" class ="line"></div>
-   <div id="angle"></div>
-	<div id="guideX"></div>
-	<div id="guideY"></div>
-    <div><label>Gamma: <label id="gamma"></label>
-        <label>Beta: <label id="beta"></label>
-    </div>
-   <div><label>Drive: <label id="drive"></label></div>
+<div id="x" class="line"></div>
+<div id="y" class ="line"></div>
+<!--<div id="angle"></div>-->
+<div id="guideX"></div>
+<div id="guideY"></div>
+<div><label>Gamma: <label id="gamma"></label>
+    <label>Beta: <label id="beta"></label>
+</div>
+<div><label>Drive: <label id="drive"></label></div>
 <input type="range" id="speed" min="-100" max="100" step="20"
-      oninput="updateSpeed(this.value)">
+       oninput="updateSpeed(this.value)">
 
 </body>
 </html>
