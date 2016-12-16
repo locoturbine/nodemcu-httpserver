@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="js/roomba.js"></script>
 
+
     <!--<script src="js/main.js"></script>-->
 
 
@@ -19,6 +20,7 @@
     var speedInput = 0;
     var lastBeta = 0;
     var lastGamma = 0 ;
+    var commandTimer;
     function init()
     {
         if (window.DeviceOrientationEvent) {
@@ -46,7 +48,11 @@
                 }
 
             }, true);
-            setInterval(function(){
+//            $.timer(function() {
+//                changeDirection(lastBeta);
+//            }, 1000, true);
+
+            commandTimer = setInterval(function(){
                 changeDirection(lastBeta);//,lastGamma);
             }, 1000)
 
@@ -54,6 +60,11 @@
         } else {
             alert("Sorry, your browser doesn't support Device Orientation");
         }
+    }
+
+    function stopTimer() {
+        clearInterval(commandTimer);
+
     }
 
     function updateSpeed(speed) {
@@ -77,20 +88,29 @@
 
     }
 
+    function controlRemoteScreen() {
+        window.history.back();
+    }
+
 </script>
-<div id="label" class="start"></div>
+
 
 <div id="x" class="line"></div>
 <div id="y" class ="line"></div>
 <!--<div id="angle"></div>-->
 <div id="guideX"></div>
 <div id="guideY"></div>
-<div><label>Gamma: <label id="gamma"></label>
+<div>
+    <button onclick="controlRemoteScreen()">Exit</button><button onclick="stopTimer()">Stop</button>
+</div>
+<div>
+
+    <label>Gamma: <label id="gamma"></label>
     <label>Beta: <label id="beta"></label>
 </div>
 <div><label>Drive: <label id="drive"></label></div>
 <input type="range" id="speed" min="-100" max="100" step="20"
        oninput="updateSpeed(this.value)">
-
+<div id="label" class="start"></div>
 </body>
 </html>
