@@ -36,14 +36,29 @@ const DEFAULT_SPEED = 200;
 const wheelbase = 258;
 var millimetersPerDegree = (wheelbase * Math.PI / 360.0);
 var speed = DEFAULT_SPEED;
+var init = true;
 
-function sendCommand(command) {
-    var url = ROOMBA_LUA_HOST + "roomba_controller.lua?command=" + command;
+function sendInit() {
+    var url = ROOMBA_LUA_HOST + "roomba_init.lua";
     console.log("URL: " + url);
     xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = processRequest;
     xmlHttp.open("GET", url, true);
     xmlHttp.send(null);
+    init = false;
+}
+
+
+function sendCommand(command) {
+    if (init)
+        sendInit();
+    var url = ROOMBA_LUA_HOST + "roomba_controller.lua?command=" + command ;
+    console.log("URL: " + url);
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = processRequest;
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+
 }
 
 function drive(velocity, radius) {

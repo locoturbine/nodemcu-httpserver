@@ -33,20 +33,22 @@
                 //	document.getElementById("beta").innerHTML = Math.round(event.beta);
 
                 var betaDiff = Math.abs(Math.round(event.beta) - lastBeta )
-                if (betaDiff >= 5 ) {
+                if (betaDiff >= 3 ) {
                     lastBeta = Math.round(event.beta)
                     document.getElementById("beta").innerHTML = Math.round(event.beta) + " : " + betaDiff;
-                    changeDirection(lastBeta,lastGamma);
+                  //  changeDirection(lastBeta,lastGamma);
                 }
                 var gammaDiff = Math.abs(Math.round(event.gamma) - lastGamma )
-                if (gammaDiff >= 5 ) {
+                if (gammaDiff >= 15 ) {
                     lastGamma = Math.round(event.gamma)
                     document.getElementById("gamma").innerHTML = Math.round(event.gamma) + " : " + gammaDiff;
-                    changeDirection(lastBeta,lastGamma);
+                   // changeDirection(lastBeta,lastGamma);
                 }
 
             }, true);
-
+            setInterval(function(){
+                changeDirection(lastBeta,lastGamma);
+            }, 1000)
 
 
         } else {
@@ -54,19 +56,22 @@
         }
     }
 
+
+
     function changeDirection(beta, gamma ) {
-	var speed = 0 ;
-        var angle = 0 ;
+	    var n = 1; //steering ratio
+        var speed = 0 ;
+        var radius = 0 ;
         if (gamma > 0){
-            angle = beta;
             speed = Math.round((1 - gamma/90) * 500);
         }
         else if (gamma < 0 ) {
             speed =  Math.round(((-1) * gamma/90 - 1) * 500);
-            angle = beta ;
+
         }
-        document.getElementById("drive").innerHTML = "speed: " + speed +  " angle: " + angle;
-	    drive(speed,angle);
+        radius = Math.round(wheelbase / ( Math.sin( (beta * (Math.PI / 180)) /n)));
+        document.getElementById("drive").innerHTML = "speed: " + speed +  " radius: " + radius;
+	    drive(speed,radius);
 
     }
 
