@@ -2,7 +2,7 @@
  * Created by fcia on 12/15/16.
  */
 var xmlHttp = null;
-const ROOMBA_LUA_HOST = 'http://192.168.0.100/';
+const ROOMBA_LUA_HOST = 'http://205.178.46.29:8001/';
 const START = 128;  // 0
 const BAUD = 129;  // 1
 const CONTROL = 130;  // 0
