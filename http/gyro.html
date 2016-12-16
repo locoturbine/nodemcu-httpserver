@@ -64,6 +64,7 @@
 
     function stopTimer() {
         clearInterval(commandTimer);
+        stop();
 
     }
 
@@ -100,7 +101,7 @@
 <!--<div id="angle"></div>-->
 <div id="guideX"></div>
 <div id="guideY"></div>
-<div>
+<div id="buttons">
     <button onclick="controlRemoteScreen()">Exit</button><button onclick="stopTimer()">Stop</button>
 </div>
 <div>
