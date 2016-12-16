@@ -19,6 +19,13 @@ body{
 	z-index:100;
 }
 
+input[type="range"] {
+	position:absolute;
+	-webkit-transform: rotate(90deg);
+	top:100px;
+
+}
+
 #x
 {
 }

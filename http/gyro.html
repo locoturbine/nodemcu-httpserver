@@ -16,7 +16,7 @@
 
 <body onload="init()">
 <script>
-
+    var speedInput = 0;
     function init()
     {
         if (window.DeviceOrientationEvent) {
@@ -56,19 +56,20 @@
         }
     }
 
-
+    function updateSpeed(speed) {
+        speedInput = speed;
+    }
 
     function changeDirection(beta, gamma ) {
 	    var n = 1; //steering ratio
-        var speed = 0 ;
+        var speed = speedInput * 500;
         var radius = 0 ;
-        if (gamma > 0){
-            speed = Math.round((1 - gamma/90) * 500);
-        }
-        else if (gamma < 0 ) {
-            speed =  Math.round(((-1) * gamma/90 - 1) * 500);
-
-        }
+//        if (gamma > 0){
+//            speed = Math.round((1 - gamma/90) * 500);
+//         }
+//        else if (gamma < 0 ) {
+//            speed =  Math.round(((-1) * gamma/90 - 1) * 500);
+//        }
         radius = Math.round(wheelbase / ( Math.sin( (beta * (Math.PI / 180)) /n)));
         document.getElementById("drive").innerHTML = "speed: " + speed +  " radius: " + radius;
 	    drive(speed,radius);
@@ -87,5 +88,8 @@
         <label>Beta: <label id="beta"></label>
     </div>
    <div><label>Drive: <label id="drive"></label></div>
+<input type="range" id="speed" min="-100" max="100" step="20"
+       nchange="updateSpeed(this.value)">
+
 </body>
 </html>
